@@ -1,45 +1,38 @@
--- Switch to the alx_book_store database
 USE alx_book_store;
 
--- Create authors table
-CREATE TABLE authors (
-    author_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    country VARCHAR(100)
+CREATE TABLE AUTHORS (
+    author_id INT PRIMARY KEY,
+    author_name VARCHAR(215)
 );
 
--- Create books table
-CREATE TABLE books (
-    book_id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(200) NOT NULL,
+CREATE TABLE BOOKS (
+    book_id INT PRIMARY KEY,
+    title VARCHAR(130),
     author_id INT,
-    price DECIMAL(10,2),
-    stock_quantity INT,
-    FOREIGN KEY (author_id) REFERENCES authors(author_id)
+    price DOUBLE,
+    publication_date DATE,
+    FOREIGN KEY (author_id) REFERENCES AUTHORS(author_id)
 );
 
--- Create customers table
-CREATE TABLE customers (
-    customer_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE,
-    address VARCHAR(255)
+CREATE TABLE CUSTOMERS (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(215),
+    email VARCHAR(215),
+    address TEXT
 );
 
--- Create orders table
-CREATE TABLE orders (
-    order_id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE ORDERS (
+    order_id INT PRIMARY KEY,
     customer_id INT,
     order_date DATE,
-    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+    FOREIGN KEY (customer_id) REFERENCES CUSTOMERS(customer_id)
 );
 
--- Create order_details table
-CREATE TABLE order_details (
-    order_detail_id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE ORDER_DETAILS (
+    orderdetailid INT PRIMARY KEY,
     order_id INT,
     book_id INT,
-    quantity INT,
-    FOREIGN KEY (order_id) REFERENCES orders(order_id),
-    FOREIGN KEY (book_id) REFERENCES books(book_id)
+    quantity DOUBLE,
+    FOREIGN KEY (order_id) REFERENCES ORDERS(order_id),
+    FOREIGN KEY (book_id) REFERENCES BOOKS(book_id)
 );
